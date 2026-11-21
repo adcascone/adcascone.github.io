@@ -1,0 +1,12 @@
+# build output and caches
+/_site/
+/.quarto/
+/_freeze/
+*.ipynb
+.ipynb_checkpoints/
+__pycache__/
+
+# local-only backups and system files
+/_backup-*/
+.DS_Store
+.Rhistory

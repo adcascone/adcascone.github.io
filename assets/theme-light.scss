@@ -1,0 +1,47 @@
+/*-- scss:defaults --*/
+// Light mode: Bootstrap/Quarto variables. Shared fonts and component rules live in theme.scss.
+// Every text color is a navy: headings #0b1554, body #1c2766, secondary #4b5690, links #2b45c4.
+$body-bg: #f7f8fc;
+$body-color: #1c2766;
+$headings-color: #0b1554;
+$text-muted: #4b5690;
+$primary: #0b1554;
+$secondary: #4b5690;
+$link-color: #2b45c4;
+$navbar-bg: #f7f8fc;        // light header that matches the page
+$navbar-fg: #0b1554;
+$navbar-hl: #2b45c4;
+$footer-bg: #f7f8fc;
+$footer-fg: #4b5690;
+$border-color: #e1e4f0;
+
+/*-- scss:rules --*/
+// Design tokens used by theme.scss (and read by the soccer chart for its colors).
+:root {
+  --ac-bg: #f7f8fc;
+  --ac-surface: #ffffff;
+  --ac-surface-2: #eef0f8;
+  --ac-ink: #0b1554;             // headings, titles
+  --ac-ink-2: #1c2766;           // body text
+  --ac-muted: #4b5690;           // labels, dates, captions
+  --ac-border: rgba(11, 21, 84, 0.10);
+  --ac-border-strong: rgba(11, 21, 84, 0.22);
+  --ac-primary: #0b1554;
+  --ac-link: #2b45c4;
+  --ac-accent: #2b45c4;          // bright navy: photo ring, hub nodes, focus rings, active nav
+  --ac-accent-ink: #2b45c4;
+  --ac-chip-bg: #eef0fb;
+  --ac-btn-bg: #0b1554;
+  --ac-btn-bg-hover: #1c2a7a;
+  --ac-btn-fg: #ffffff;
+  --ac-shadow: 0 1px 2px rgba(11, 21, 84, 0.06), 0 10px 30px rgba(11, 21, 84, 0.07);
+  // toy brain network in the homepage hero
+  --ac-net-node: rgba(11, 21, 84, 0.42);
+  --ac-net-edge-rgb: 11, 21, 84;
+  --ac-net-hub: #2b45c4;
+  // chart series: validated categorical steps; every pair that touches in the stacked bars passes
+  --ac-s1: #2a78d6;   // Equalizer Soccer
+  --ac-s2: #1baf7a;   // ESPN
+  --ac-s3: #eda100;   // Backheeled
+  --ac-s4: #e87ba4;   // American Soccer Analysis
+}

@@ -1,0 +1,54 @@
+name: Update articles and publish site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 14 * * 1,4'  # Mondays and Thursdays, 9 AM EST / 10 AM EDT (2 PM UTC)
+  workflow_dispatch:        # "Run workflow" button on the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  update-and-publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml jupyter
+
+      # Scheduled and manual runs check Equalizer Soccer for new articles first.
+      - name: Add new Equalizer articles
+        if: github.event_name != 'push'
+        run: python scripts/update_articles.py
+
+      - name: Commit new articles to main
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add soccer_articles.yml
+          git diff --staged --quiet || { git commit -m "chore: add new soccer articles [skip ci]" && git push; }
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.11.9
+
+      - name: Render and publish to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

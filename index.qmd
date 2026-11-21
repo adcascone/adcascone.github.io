@@ -1,0 +1,127 @@
+---
+title: ""
+pagetitle: "Arianna D. Cascone, PhD"
+description: "PhD neuroscientist, Senior Sales Engineer at Atropos Health, and NWSL writer for ESPN and Equalizer Soccer."
+toc: false
+jupyter: python3
+echo: false
+include-after-body: assets/network.html
+---
+
+::: {.column-page}
+
+```{=html}
+<section class="ac-hero" aria-labelledby="ac-hero-title">
+  <canvas id="ac-network" aria-hidden="true"></canvas>
+  <div class="ac-hero-grid">
+    <div class="ac-hero-text">
+      <p class="ac-eyebrow">Senior Sales Engineer · Atropos Health</p>
+      <h1 id="ac-hero-title">Arianna D. Cascone, PhD</h1>
+      <p class="ac-lead">
+        I work where clinical research, data science, and software meet, turning complex health data
+        into evidence people can act on. My path runs from network neuroscience to open-source tools
+        for clinical trials to real-world evidence, with NWSL analysis for ESPN and Equalizer Soccer along the way.
+      </p>
+      <ul class="ac-chips" aria-label="Areas I work across">
+        <li class="ac-chip">Neuroscience</li>
+        <li class="ac-chip">Clinical research</li>
+        <li class="ac-chip">Real-world evidence</li>
+        <li class="ac-chip">Open-source software</li>
+        <li class="ac-chip">Data engineering</li>
+        <li class="ac-chip">Sports analytics</li>
+      </ul>
+      <div class="ac-actions">
+        <a class="ac-btn ac-btn-primary" href="about.html">Experience <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        <a class="ac-btn" href="research.html">Research</a>
+        <a class="ac-btn ac-icon-btn" href="https://github.com/adcascone" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+        <a class="ac-btn ac-icon-btn" href="https://www.linkedin.com/in/arianna-d-cascone/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+        <a class="ac-btn ac-icon-btn" href="https://bsky.app/profile/casconearianna.bsky.social" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><i class="bi bi-bluesky" aria-hidden="true"></i></a>
+        <a class="ac-btn ac-icon-btn" href="mailto:ariannacascone4@gmail.com" aria-label="Email"><i class="bi bi-envelope" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div class="ac-hero-photo">
+      <img src="Cascone-Headshot-web.png" alt="Headshot of Arianna D. Cascone" width="270" height="270">
+    </div>
+  </div>
+  <p class="ac-caption">// background: a toy brain network, drawn live in your browser. Nearby regions connect, and hub nodes reach farther, a nod to my PhD work on functional connectivity.</p>
+</section>
+
+<section class="ac-section" aria-labelledby="ac-work-title">
+  <div class="ac-section-title"><h2 id="ac-work-title">What I work on</h2></div>
+  <div class="ac-cards">
+    <article class="ac-card">
+      <div class="ac-card-icon" aria-hidden="true"><i class="bi bi-bar-chart-line"></i></div>
+      <h3>Real-world evidence</h3>
+      <p>At Atropos Health I build real-world evidence analyses on large-scale clinical data and help life-science and healthcare teams put that evidence to work.</p>
+      <div class="ac-card-links"><a href="https://www.atroposhealth.com/" target="_blank" rel="noopener noreferrer">Atropos Health <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a></div>
+    </article>
+    <article class="ac-card">
+      <div class="ac-card-icon" aria-hidden="true"><i class="bi bi-code-slash"></i></div>
+      <h3>Open-source software &amp; standards</h3>
+      <p>I'm a core developer of {admiral}, the pharmaverse toolbox for clinical trial analysis datasets, and maintain {binom} for binomial confidence intervals. I've also led a working group with the CDISC ADaM Implementation Guide team and contributed to OpenVal™, Atorus Research's validated package-delivery system.</p>
+      <div class="ac-card-links">
+        <a href="https://pharmaverse.github.io/admiral/" target="_blank" rel="noopener noreferrer">{admiral} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+        <a href="https://github.com/adcascone/binom" target="_blank" rel="noopener noreferrer">{binom} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+        <a href="https://phuse.s3.eu-central-1.amazonaws.com/Archive/2025/Connect/US/Orlando/PAP_OS05.pdf" target="_blank" rel="noopener noreferrer">PHUSE paper <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+      </div>
+    </article>
+    <article class="ac-card">
+      <div class="ac-card-icon" aria-hidden="true"><i class="bi bi-diagram-3"></i></div>
+      <h3>Network neuroscience</h3>
+      <p>My PhD at UNC-Chapel Hill used fMRI and graph theory to study brain-network dynamics in clinical populations, supported by an NIH F31 fellowship.</p>
+      <div class="ac-card-links"><a href="research.html">Publications <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+    </article>
+    <article class="ac-card">
+      <div class="ac-card-icon" aria-hidden="true"><i class="bi bi-trophy"></i></div>
+      <h3>Soccer analysis</h3>
+      <p>I write about the NWSL and the U.S. women's national team for ESPN and Equalizer Soccer, from weekly power rankings to goal-by-goal breakdowns, and built a fan site with every match's kickoff time and where to stream it.</p>
+      <div class="ac-card-links"><a href="soccer.html">Writing <i class="bi bi-arrow-right" aria-hidden="true"></i></a><a href="projects.html">NWSL Kickoffs <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+    </article>
+  </div>
+</section>
+```
+
+```{python}
+# "Latest writing": built from soccer_articles.yml on every render, so it never goes stale.
+import html
+from datetime import date
+
+import yaml
+from IPython.display import HTML, display
+
+OUTLET_SERIES = {"Equalizer Soccer": 1, "ESPN": 2, "Backheeled": 3, "American Soccer Analysis": 4}
+
+raw = yaml.safe_load(open("soccer_articles.yml", encoding="utf-8"))
+articles = sorted(
+    (a for a in raw.values() if a.get("published_url") and a.get("title")),
+    key=lambda a: str(a["date"]),
+    reverse=True,
+)
+
+
+def card(a):
+    d = date.fromisoformat(str(a["date"]))
+    outlet = a.get("publisher") or ""
+    return f"""
+    <li class="ac-article">
+      <div class="ac-article-meta">
+        <time datetime="{d.isoformat()}">{d:%b} {d.day}, {d.year}</time>
+        <span class="ac-outlet"><span class="ac-dot" data-series="{OUTLET_SERIES.get(outlet, 1)}" aria-hidden="true"></span>{html.escape(outlet)}</span>
+      </div>
+      <h3><a href="{html.escape(a['published_url'], quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(a['title'])}</a></h3>
+      <p>{html.escape(a.get('description') or '')}</p>
+    </li>"""
+
+
+display(HTML(f"""
+<section class="ac-section" aria-labelledby="ac-latest-title">
+  <div class="ac-section-title">
+    <h2 id="ac-latest-title">Latest writing</h2>
+    <a href="soccer.html">All {len(articles)} articles <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+  </div>
+  <ol class="ac-article-list ac-article-grid">{''.join(card(a) for a in articles[:3])}</ol>
+</section>
+"""))
+```
+
+:::

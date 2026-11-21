@@ -1,0 +1,95 @@
+PD_cog_decline:
+  title: "Frontoparietal network resilience is associated with protection against cognitive decline in Parkinson's disease"
+  authors:
+    - me
+    - Stephanie Langella
+    - Miriam Sklerov
+    - Eran Dayan
+  year: 2021
+  preprint:
+  github:
+  published_url: https://www.nature.com/articles/s42003-021-02478-3
+  pubmed: https://pubmed.ncbi.nlm.nih.gov/34471211/
+  journal: Communications Biology
+  abstract: "Though Parkinson's disease is primarily defined as a movement disorder, it is also characterized by a range of non-motor symptoms, including cognitive decline. The onset and progression of cognitive decline in individuals with Parkinson's disease is variable, and the neurobiological mechanisms that contribute to, or protect against, cognitive decline in Parkinson's disease are poorly understood. Using resting-state functional magnetic resonance imaging data collected from individuals with Parkinson's disease with and without cognitive decline, we examined the relationship between topological brain-network resilience and cognition in Parkinson's disease. By leveraging network attack analyses, we demonstrate that relative to individuals with Parkinson's disease experiencing cognitive decline, the frontoparietal network in cognitively stable individuals with Parkinson's disease is significantly more resilient to network perturbation. Our findings suggest that the topological robustness of the frontoparietal network is associated with the absence of cognitive decline in individuals with Parkinson's disease."
+  
+TAT2:
+  title: "Brain tissue iron neurophysiology and its relationship with the cognitive
+effects of dopaminergic modulation in children with and without ADHD"
+  authors:
+    - me
+    - Finnegan Calabro
+    - William Foran
+    - Bart Larsen
+    - Tehila Nugiel
+    - Ashley C. Parr
+    - Brenden Tervo-Clemmens
+    - Beatriz Luna
+    - Jessica R. Cohen
+  year: 2023
+  preprint:
+  github:
+  published_url: https://doi.org/10.1016/j.dcn.2023.101274
+  pubmed: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10372187/
+  journal: Developmental Cognitive Neuroscience
+  abstract: "Children with attention-deficit/hyperactivity disorder (ADHD) exhibit impairments in response inhibition. These impairments are ameliorated by modulating dopamine (DA) via the administration of rewards or stimulant medication like methylphenidate (MPH). It is currently unclear whether intrinsic DA availability impacts these effects of dopaminergic modulation on response inhibition. Thus, we estimated intrinsic DA availability using magnetic resonance-based assessments of basal ganglia and thalamic tissue iron in 36 medication-naïve children with ADHD and 29 typically developing (TD) children (8–12 y) who underwent fMRI scans and completed standard and rewarded go/no-go tasks. Children with ADHD additionally participated in a double-blind, randomized, placebo-controlled, crossover MPH challenge. Using linear regressions covarying for age and sex, we determined there were no group differences in brain tissue iron. We additionally found that higher putamen tissue iron was associated with worse response inhibition performance in all participants. Crucially, we observed that higher putamen and caudate tissue iron was associated with greater responsivity to MPH, as measured by improved task performance, in participants with ADHD. These results begin to clarify the role of subcortical brain tissue iron, a measure associated with intrinsic DA availability, in the cognitive effects of reward- and MPH-related dopaminergic modulation in children with ADHD and TD children."
+  
+ADHD_reconfig:
+  title: "Reconfiguration of functional brain network organization and dynamics with changing cognitive demands in children with attention-deficit/hyperactivity disorder"
+  authors:
+    - Cleanthis Michael
+    - Mackenzie E. Mitchell
+    - me
+    - Nicholas D. Fogleman
+    - Keri S. Rosch
+    - Sarah A. Cutts
+    - James J. Pekar
+    - Olaf Sporns
+    - Stewart H. Mostofsky
+    - Jessica R. Cohen
+  year: 2025
+  preprint:
+  github:
+  published_url: https://doi.org/10.1016/j.bpsc.2024.11.006
+  pubmed: https://pubmed.ncbi.nlm.nih.gov/39561892/
+  journal: "Biological Psychiatry: Cognitive Neuroscience and Neuroimaging"
+  abstract: "The pathophysiology of attention-deficit/hyperactivity disorder (ADHD) is characterized by atypical brain network organization and dynamics. Although functional brain networks adaptively reconfigure across cognitive contexts, previous studies have largely focused on network dysfunction during the resting-state. This preliminary study examined how functional brain network organization and dynamics flexibly reconfigure across rest and two cognitive control tasks with different cognitive demands in 30 children with ADHD and 36 typically developing (TD) children (8-12 years)."
+  
+loneliness_AIS:
+  title: "Loneliness exacerbates age differences in the allostatic-interoceptive system during induced affect"
+  authors:
+    - Ruofan Ma
+    - Taylor N. West
+    - Gretchen E. Wulfekuhle
+    - Yuritza Y. Escalante
+    - me
+    - Natalie G. Frye
+    - Joseph Leshin
+    - Barbara L. Fredrickson
+    - Jessica R. Cohen
+    - Kristen A. Lindquist
+  year: 2026
+  preprint:
+  github:
+  published_url: https://academic.oup.com/scan/article-lookup/doi/10.1093/scan/nsaf124
+  pubmed: https://pubmed.ncbi.nlm.nih.gov/41476235/
+  journal: Social Cognitive and Affective Neuroscience
+  abstract: "Loneliness is associated with age-related health issues through its impact on the brain and body. The brain's allostatic-interoceptive system (AIS) consists of regions that predictively regulate bodily functions in reaction to affectively or socially salient situations. We hypothesized that loneliness would interact with age to exacerbate normative age-related differences in the static (i.e. average) and dynamic (i.e. time-varying) functional connectivity of the AIS during socially salient scenarios. Participants (N = 73) rated their loneliness and underwent functional magnetic resonance imaging (fMRI) during a task involving socially neutral, pleasant, and unpleasant conditions. Static and dynamic functional connectivity of the AIS were each quantified using participation coefficient (PC) and within-module degree (WD), which are graph-theoretical metrics indicating integration of the AIS with the rest of the brain and coherence within itself, respectively. Static AIS PC was positively associated with age across conditions. In the socially pleasant condition, static AIS WD decreased with increasing age, but only for those with high loneliness. In both the pleasant and unpleasant conditions, dynamic PC and WD showed steeper negative associations with age in individuals with higher loneliness. Overall, loneliness may exacerbate age-related differences in brain systems that are essential for physiological regulation and responding to social cues."
+
+ADHD_variability_dFC:
+  title: "Variability in behavior and dynamic functional connectivity are related to ADHD symptom severity in a dimensional sample of children"
+  authors:
+    - me
+    - Sarah A. Cutts
+    - Alex S. Burt
+    - Kelly L. Klump
+    - Olaf Sporns
+    - Luke W. Hyde
+    - Jessica R. Cohen
+  year: in-preparation
+  preprint:
+  github:
+  published_url:
+  pubmed:
+  journal:
+  abstract:

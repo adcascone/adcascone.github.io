@@ -1,0 +1,274 @@
+---
+title: "About"
+---
+
+I hold a PhD in neuroscience from the University of North Carolina at Chapel Hill and now work as a Senior Sales Engineer at [Atropos Health](https://www.atroposhealth.com/). Before that, I spent two and a half years building validated, open-source R tools for clinical trials at [Atorus Research Inc.](https://www.atorusresearch.com/)
+
+### Interests
+
+-   Real-world evidence
+-   Open-source software for clinical data (R, pharmaverse)
+-   Biotechnology
+-   Clinical research & analytics
+-   Translational medicine
+-   Data science
+-   Data visualization
+
+### Education
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**University of North Carolina at Chapel Hill**\
+PhD, Neuroscience\
+-   Advisor: Jessica R. Cohen, PhD
+
+</div>
+
+::: text-end
+Chapel Hill, NC\
+January 2024
+:::
+:::
+
+-   Dissertation: *Categorical and dimensional investigations of dynamic functional connectivity and behavior in children with and without ADHD*
+-   Translational Medicine Certification
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Vassar College**\
+B.A., Neuroscience and Behavior\
+Advisor: J. Mark Cleaveland, PhD\
+Research Advisor: Lori A. Newman, PhD
+
+</div>
+
+::: text-end
+Poughkeepsie, NY\
+May 2019
+:::
+:::
+
+### Experience
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Senior Sales Engineer**
+
+Atropos Health\
+
+</div>
+
+::: text-end
+August 2026 - Present
+:::
+:::
+
+-   Lead technical discovery, solution design, and product demonstrations for Atropos Health's real-world evidence platform with life-science and healthcare organizations.
+-   Develop real-world evidence analyses in Atropos Health's proprietary programming language and SQL across Databricks, Snowflake, and other cloud data platforms to support customer evaluations and pilots.
+-   Translate customers' clinical and research questions into real-world evidence study designs and technical requirements, drawing on PhD-level training in clinical research and biostatistics.
+-   Partner with product, data science, and customer success teams to scope engagements and relay customer feedback to inform the product roadmap.
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Principal Data Solutions Engineer**\
+Senior Data Solutions Engineer\
+Data Solutions Engineer
+
+Atorus Research Inc.\
+Analytics Engineering\
+
+</div>
+
+::: text-end
+February 2026 - August 2026\
+February 2025 - January 2026\
+February 2024 - January 2025
+:::
+:::
+
+-   Participated in the development of OpenVal™, a subscription-based, validated package-delivery system for clinical trial data workflows in support of the R programming language.
+-   Led a team of engineers and programmers in developing, implementing, and maintaining standardized operating procedures to ensure code quality and reproducibility.
+-   Maintained a code base using software versioning tools (e.g., git) and continuous integration best practices via the Azure DevOps environment.
+-   Created and maintained technical documentation, including user guides and troubleshooting manuals for software product specifications.
+-   Advised clients on best practices for validation and application of statistical software in data analysis and visualization for FDA regulatory submissions.
+-   Ensured open-source software adhered to CDISC standards via the Study Data Tabulation Model Implementation Guide (SDTM IG) and Analysis Data Model Implementation Guide (ADaM IG).
+-   Spearheaded integration of large language models into validation workflows, reducing manual review cycles and accelerating delivery of validated R packages for clinical trial data pipelines.
+
+
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Graduate Research Fellow**
+
+University of North Carolina at Chapel Hill\
+Neuroscience Curriculum\
+Chapel Hill, NC\
+
+</div>
+
+::: text-end
+August 2019 - January 2024
+:::
+:::
+
+-   Designed and implemented large-scale neuroimaging and biomarker analyses integrating fMRI, behavioral, and clinical datasets via a high-performance cluster.
+-   Applied advanced statistical modeling and time-series techniques to probe the neural underpinnings of cognition in clinical populations.
+-   Developed and maintained high-throughput MRI preprocessing and analysis pipelines.
+-   Conducted analyses within clinical trial and translational research frameworks, linking neural network dynamics to treatment-relevant phenotypes (e.g., ADHD, Parkinson’s disease).
+-   Led IRB submissions and ensured regulatory and ethical compliance for human-subjects research.
+-   Authored and co-authored peer-reviewed publications in high-impact neuroscience journals.
+-   Secured competitive NIH funding and contributed to federal grant submissions.
+
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Analytics Engineering Intern**
+
+Atorus Research Inc.\
+
+</div>
+
+::: text-end
+July 2023 - August 2023
+:::
+:::
+
+-   Participated in the development of *OpenVal*, a subscription-based, validated package-delivery system for clinical trial analyses in support of the R programming language.
+-   Created and tested code for new statistical, machine learning, pharmacokinetic/pharmacodynamic, genomic, and utility R packages while assisting in the creation of risk assessment processes in clinical trial analysis.
+-   Implemented code using the Azure DevOps environment for continuous testing and version control.
+
+::: {.d-flex .justify-content-between}
+<div>
+
+
+**Neuroimaging and Statistics Research Fellow**
+
+South Shore Neurologic Associates, P.C.\
+Research Subdivision\
+Patchogue, NY
+
+</div>
+
+::: text-end
+December 2017 - May 2019
+:::
+:::
+
+-   Performed statistical modeling and data visualization for clinical neurology studies.
+-   Presented statistical findings to technical and non-technical audiences.
+-   Conducted comprehensive clinical interviews to support diagnostic evaluation and treatment planning for patients.
+
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Neuroscience & Behavior Laboratory Intern**\
+**Undergraduate Research Assistant**
+
+Vassar College\
+Department of Neuroscience\
+Poughkeepsie, NY
+
+</div>
+
+::: text-end
+August 2017 - May 2019
+:::
+:::
+
+-   Collaborated with Dr. Lori A. Newman in an undergraduate laboratory research setting researching the structure and function of astrocytes and glial cells in rodent models.
+-   Ensured compliance with Institutional Animal Care and Use Committee guidelines in the planning and execution of non-human animal research by developing and adhering to study protocols and monitoring the laboratory group’s adherence to ethical standards.
+-   Wrote data analysis and visualization scripts in R for manuscripts, posters, and presentations.
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Psychological Statistics Student Intern**
+
+Vassar College\
+Department of Psychology\
+Poughkeepsie, NY
+
+</div>
+
+::: text-end
+August 2017 - May 2018
+:::
+:::
+
+-   Taught and displayed various statistical demonstrations in R, SPSS, and JASP.
+
+### Open-Source Software & Standards
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Maintainer, [{binom}](https://github.com/adcascone/binom) R package**
+
+</div>
+
+::: text-end
+2026 - Present
+:::
+:::
+
+-   Binomial confidence intervals for several parameterizations, available on [CRAN](https://CRAN.R-project.org/package=binom).
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Core Developer, [{admiral}](https://pharmaverse.github.io/admiral/) R package (pharmaverse)**
+
+</div>
+
+::: text-end
+2025 - Present
+:::
+:::
+
+-   Open-source, modular toolbox for developing CDISC ADaM datasets: Mancini E, Bundfuss S, **Cascone A**, Dahnert K, Dickinson J, Farrugia R, Gautier F, Hobby L, Miller G, Patil L, Straub B (2026). *admiral: ADaM in R Asset Library*. R package version 1.5.0, <https://pharmaverse.github.io/admiral/>.
+
+::: {.d-flex .justify-content-between}
+<div>
+
+**Lead, [admiral & ADaM IG Working Group](https://github.com/pharmaverse/admiral-adamig-wg) (pharmaverse)**
+
+</div>
+
+::: text-end
+2025 - 2026
+:::
+:::
+
+-   Led a pharmaverse working group, in collaboration with the CDISC ADaM Implementation Guide team, that reviewed ADaM IG v1.3 section by section against {admiral} to identify gaps in functions, derivations, and documentation.
+-   Onboarded and coordinated working group members, structuring the review so contributors without R experience could participate.
+-   Turned findings into {admiral} issues and documentation updates (e.g., timing-variable conventions, BDS findings guidance, questionnaire ADaMs), resolving several directly as a core developer.
+
+### Talks & Presentations
+
+R package risk assessment: Balancing programmatic and human inputs. (March 2025). PHUSE US Connect 2025: The Clinical Data Science Conference.
+
+Brain tissue iron neurophysiology and its relationship with cognitive effects of methylphenidate-related dopaminergic modulation in children with ADHD. (April 2023). Translational Medicine Symposium.
+
+Functional Neuroimaging in Research at UNC-CH. (November 2022). Maximizing Exposure to Biomedical Research Preview Day. 
+
+Magnetic Resonance Imaging Tools for Neuroscience Research. (October 2022). Carolina Neuroscience Organization.
+
+### Certifications and Professional Trainings
+
+General Privacy & Informational Security, HIPAA Training
+
+Human Research Involving Data and Specimens, Collaborative Institutional Training Initiative
+
+Good Clinical Practice for Clinical Trials with Investigational Drugs, Biologics, and Devices, Collaborative Institutional Training Initiative
+
+Social and Behavioral Research Best Practices for Clinical Research, Collaborative Institutional Training Initiative
+
+
+<br><br><br><br><br><br> [Website design based on: Drew Dimmery. 2022. "Quarto for an Academic Website." May 11, 2022. <https://ddimmery.com/posts/quarto-website>]{style="font-size:0.75em;"}.

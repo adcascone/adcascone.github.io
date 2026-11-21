@@ -1,0 +1,279 @@
+---
+title: "Soccer"
+subtitle: "NWSL and USWNT analysis for ESPN and Equalizer Soccer"
+jupyter: python3
+echo: false
+toc: false
+---
+
+I write about the National Women's Soccer League and the U.S. women's national team for [ESPN](https://www.espn.com/search/_/q/arianna%20cascone), where I contribute to the weekly NWSL Power Rankings, and for [Equalizer Soccer](https://equalizersoccer.com/author/arianna1521386/), including the *Anatomy of a Goal* series. I've also written for [American Soccer Analysis](https://www.americansocceranalysis.com/) and [Backheeled](https://www.backheeled.com/).
+
+I was also the co-host of the now-retired [Equalizer Podcast](https://open.spotify.com/episode/5K1IqiKiFnr1kgHtWQsCFE?si=23dce2249f1945ca), and I've appeared on the [Total Soccer Show](https://open.spotify.com/episode/2V6D69bZTEhr3YcWI6k0mi?si=pxQCGifZRr6rKdr_xddOrg) and [The Backheeled Show](https://open.spotify.com/episode/59OgUGFpVRX10WZLwz9Pif?si=HxFMsv9WQ2WjzY9y7EuXqw) to discuss the [NWSL](https://www.nwslsoccer.com/) and the USWNT.
+
+```{python}
+# Data prep: read every article from soccer_articles.yml, tag its series, and hand it to Observable JS.
+import yaml
+
+raw = yaml.safe_load(open("soccer_articles.yml", encoding="utf-8"))
+
+
+def series(title):
+    t = title.lower()
+    if t.startswith("anatomy of a goal"):
+        return "Anatomy of a Goal"
+    if "power rankings" in t:
+        return "Power Rankings"
+    if t.startswith(("cascone’s xi", "cascone's xi", "12 nwsl thoughts")):
+        return "Weekly columns"
+    if "takeaway" in t:
+        return "Takeaways"
+    if "preview" in t or "prediction" in t:
+        return "Previews & predictions"
+    return "Features & analysis"
+
+
+articles = sorted(
+    (
+        {
+            "title": a["title"],
+            "date": str(a["date"]),
+            "url": a["published_url"],
+            "description": a.get("description") or "",
+            "publisher": a.get("publisher") or "Other",
+            "series": series(a["title"]),
+        }
+        for a in raw.values()
+        if a.get("published_url") and a.get("title")
+    ),
+    key=lambda a: a["date"],
+    reverse=True,
+)
+ojs_define(articles=articles)
+```
+
+```{ojs}
+//| output: false
+// ---- setup: libraries, constants, helpers ----------------------------------------------
+Plot = import("https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm")
+
+// Outlet order = color slot order (validated categorical palette); colors live in the theme as --ac-s1..4.
+OUTLETS = ["Equalizer Soccer", "ESPN", "Backheeled", "American Soccer Analysis"]
+seriesOf = new Map(OUTLETS.map((o, i) => [o, String(i + 1)]))
+SERIES = ["Anatomy of a Goal", "Power Rankings", "Weekly columns", "Takeaways", "Previews & predictions", "Features & analysis"]
+
+data = articles.map((d) => ({ ...d, when: new Date(`${d.date}T00:00:00Z`) }))
+years = Array.from(new Set(data.map((d) => d.date.slice(0, 4)))).sort().reverse()
+
+// Emits the theme's first series color, and again whenever it changes. Quarto flips <body>'s class
+// before the other stylesheet has applied, so after a toggle we watch for up to 3 s until it does.
+themeKey = Generators.observe((notify) => {
+  const read = () => getComputedStyle(document.body).getPropertyValue("--ac-s1").trim();
+  let last = read(), frame = null;
+  notify(last);
+  const watch = (until) => {
+    const v = read();
+    if (v !== last) { last = v; notify(v); }
+    if (performance.now() < until) frame = requestAnimationFrame(() => watch(until));
+  };
+  const mo = new MutationObserver(() => { cancelAnimationFrame(frame); watch(performance.now() + 3000); });
+  mo.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  return () => { mo.disconnect(); cancelAnimationFrame(frame); };
+})
+
+palette = {
+  themeKey; // re-read the theme's series colors whenever the active theme's colors change
+  const style = getComputedStyle(document.body);
+  return OUTLETS.map((_, i) => style.getPropertyValue(`--ac-s${i + 1}`).trim());
+}
+
+// Build DOM with textContent (never innerHTML) so article text is always treated as text.
+function el(tag, attrs = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k === "class") node.className = v;
+    else node.setAttribute(k, v === true ? "" : String(v));
+  }
+  for (const c of children.flat()) {
+    if (c == null || c === false) continue;
+    node.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  }
+  return node;
+}
+
+fmtDay = (d) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })
+fmtMonth = (d) => d.toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })
+safeUrl = (u) => (/^https?:\/\//i.test(u) ? u : null)
+```
+
+::: {.column-page}
+
+```{ojs}
+// ---- filters: one row, scoping everything below ------------------------------------------
+viewof filters = {
+  const field = (label, control, cls = "ac-field") => el("label", { class: cls }, el("span", {}, label), control);
+  const select = (options, allLabel) =>
+    el("select", {}, el("option", { value: "" }, allLabel), options.map((o) => el("option", { value: o }, o)));
+  const search = el("input", { type: "search", placeholder: "Search titles and descriptions…", autocomplete: "off" });
+  const outlet = select(OUTLETS, "All outlets");
+  const series = select(SERIES, "All series");
+  const year = select(years, "All years");
+  const reset = el("button", { type: "button", class: "ac-reset" }, "Reset");
+  const form = el("form", { class: "ac-filters", role: "search", "aria-label": "Filter articles" },
+    field("Search", search, "ac-field ac-field-search"), field("Outlet", outlet), field("Series", series), field("Year", year, "ac-field ac-field-year"), reset);
+  const read = () => {
+    form.value = { q: search.value.trim().toLowerCase(), outlet: outlet.value, series: series.value, year: year.value };
+  };
+  form.addEventListener("input", read, true); // capture phase: update the value before Observable reads it
+  form.addEventListener("change", () => { read(); form.dispatchEvent(new Event("input")); });
+  form.addEventListener("submit", (e) => e.preventDefault());
+  reset.addEventListener("click", () => {
+    search.value = outlet.value = series.value = year.value = "";
+    read();
+    form.dispatchEvent(new Event("input"));
+  });
+  read();
+  return form;
+}
+```
+
+```{ojs}
+//| output: false
+filtered = data.filter((d) =>
+  (!filters.outlet || d.publisher === filters.outlet) &&
+  (!filters.series || d.series === filters.series) &&
+  (!filters.year || d.date.startsWith(filters.year)) &&
+  (!filters.q || `${d.title} ${d.description}`.toLowerCase().includes(filters.q)))
+
+monthly = {
+  const counts = new Map();
+  for (const d of filtered) {
+    const key = `${d.date.slice(0, 7)}|${d.publisher}`;
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return Array.from(counts, ([key, n]) => {
+    const [ym, outlet] = key.split("|");
+    return { ym, start: new Date(`${ym}-01T00:00:00Z`), outlet, n };
+  });
+}
+
+// x-axis spans the whole archive, so it stays put while filters change
+xDomain = {
+  const first = data[data.length - 1].when, last = data[0].when;
+  return [
+    new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth(), 1)),
+    new Date(Date.UTC(last.getUTCFullYear(), last.getUTCMonth() + 1, 1)),
+  ];
+}
+```
+
+```{ojs}
+// ---- stat tiles ----------------------------------------------------------------------------
+{
+  const n = filtered.length;
+  const first = n ? filtered[n - 1].date.slice(0, 4) : null;
+  const last = n ? filtered[0].date.slice(0, 4) : null;
+  const tile = (label, value) =>
+    el("div", { class: "ac-stat" }, el("p", { class: "ac-stat-label" }, label), el("p", { class: "ac-stat-value" }, value));
+  return el("div", { class: "ac-stats" },
+    tile("Articles", n.toLocaleString("en-US")),
+    tile("Outlets", new Set(filtered.map((d) => d.publisher)).size),
+    tile("Years active", !n ? "–" : first === last ? first : `${first}–${last}`),
+    tile("Most recent", n ? fmtDay(filtered[0].when) : "–"));
+}
+```
+
+```{ojs}
+// ---- chart: articles per month, stacked by outlet --------------------------------------------
+{
+  const totals = new Map();
+  for (const d of monthly) totals.set(d.ym, (totals.get(d.ym) || 0) + d.n);
+  const maxStack = Math.max(2, ...totals.values());
+
+  const makePlot = (w) => Plot.plot({
+    width: w, height: 230, marginLeft: 30, marginRight: 6, marginTop: 12, marginBottom: 26,
+    style: { background: "transparent", color: "var(--ac-muted)", fontFamily: "inherit", fontSize: "12px" },
+    x: { type: "utc", domain: xDomain, label: null, ticks: "year", tickFormat: "%Y" },
+    y: { label: null, grid: true, domain: [0, maxStack], ticks: Math.min(4, maxStack),
+         tickFormat: (v) => (Number.isInteger(v) ? v : "") },
+    color: { domain: OUTLETS, range: palette },
+    marks: [
+      Plot.rectY(monthly, {
+        x: "start", interval: "month", y: "n", fill: "outlet", order: OUTLETS,
+        insetLeft: 1, insetRight: 1, insetTop: 1, // 2px surface gaps between bars and stacked segments
+        title: (d) => `${fmtMonth(d.start)}\n${d.outlet}: ${d.n} ${d.n === 1 ? "article" : "articles"}`,
+        tip: true,
+      }),
+      Plot.ruleY([0], { stroke: "currentColor", strokeOpacity: 0.4 }),
+    ],
+  });
+
+  const host = el("div", {
+    class: "ac-chart", role: "img",
+    "aria-label": `Stacked column chart of ${filtered.length} articles per month by outlet. Exact values are in the table below the chart.`,
+  });
+  let lastWidth = 0;
+  const ro = new ResizeObserver(([entry]) => {
+    const w = Math.floor(entry.contentRect.width);
+    if (w > 0 && w !== lastWidth) { lastWidth = w; host.replaceChildren(makePlot(w)); }
+  });
+  ro.observe(host);
+  invalidation.then(() => ro.disconnect());
+
+  // table view: the same numbers without needing hover (and the relief for lighter series colors)
+  const months = Array.from(totals.keys()).sort().reverse();
+  const count = new Map(monthly.map((d) => [`${d.ym}|${d.outlet}`, d.n]));
+  const table = el("table", {},
+    el("thead", {}, el("tr", {}, el("th", { scope: "col" }, "Month"), OUTLETS.map((o) => el("th", { scope: "col" }, o)), el("th", { scope: "col" }, "Total"))),
+    el("tbody", {}, months.map((ym) => el("tr", {},
+      el("th", { scope: "row" }, fmtMonth(new Date(`${ym}-01T00:00:00Z`))),
+      OUTLETS.map((o) => el("td", {}, count.get(`${ym}|${o}`) || "–")),
+      el("td", {}, totals.get(ym))))));
+
+  return el("section", { class: "ac-chart-card", "aria-labelledby": "ac-chart-title" },
+    el("p", { class: "ac-chart-title", id: "ac-chart-title" }, "Articles per month, by outlet"),
+    el("p", { class: "ac-chart-sub" }, "Hover a bar for the month's count. Filters above apply."),
+    el("ul", { class: "ac-legend", "aria-label": "Outlets" },
+      OUTLETS.map((o) => el("li", {}, el("span", { class: "ac-swatch", "data-series": seriesOf.get(o), "aria-hidden": "true" }), o))),
+    host,
+    el("details", { class: "ac-table-view" }, el("summary", {}, "View as table"), el("div", { class: "ac-table-scroll" }, table)));
+}
+```
+
+```{ojs}
+// ---- article list --------------------------------------------------------------------------
+{
+  const PAGE = 20;
+  const list = el("ol", { class: "ac-article-list" });
+  const more = el("button", { type: "button", class: "ac-btn ac-more" });
+  let shown = 0;
+
+  const card = (d) => el("li", { class: "ac-article" },
+    el("div", { class: "ac-article-meta" },
+      el("time", { datetime: d.date }, fmtDay(d.when)),
+      el("span", { class: "ac-outlet" },
+        el("span", { class: "ac-dot", "data-series": seriesOf.get(d.publisher) || "1", "aria-hidden": "true" }), d.publisher),
+      d.series !== "Features & analysis" ? el("span", { class: "ac-tag" }, d.series) : null),
+    el("h3", {}, el("a", { href: safeUrl(d.url), target: "_blank", rel: "noopener noreferrer" }, d.title)),
+    d.description ? el("p", {}, d.description) : null);
+
+  const showMore = () => {
+    list.append(...filtered.slice(shown, shown + PAGE).map(card));
+    shown = Math.min(filtered.length, shown + PAGE);
+    const left = filtered.length - shown;
+    more.hidden = left <= 0;
+    more.textContent = `Show ${Math.min(PAGE, left)} more (${left} left)`;
+  };
+  more.addEventListener("click", showMore);
+  showMore();
+
+  const label = `${filtered.length} ${filtered.length === 1 ? "article" : "articles"}` +
+    (filtered.length < data.length ? " match your filters" : ", newest first");
+  return el("div", { class: "ac-results" },
+    el("div", { class: "ac-results-head" }, el("p", { class: "ac-results-count", "aria-live": "polite" }, label)),
+    filtered.length ? list : el("p", { class: "ac-empty" }, "No articles match those filters. Try clearing the search or picking another outlet."),
+    more);
+}
+```
+
+:::

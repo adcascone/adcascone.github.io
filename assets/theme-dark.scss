@@ -1,0 +1,48 @@
+/*-- scss:defaults --*/
+// Dark mode: Bootstrap/Quarto variables. Shared fonts and component rules live in theme.scss.
+$body-bg: #080c2b;
+$body-color: #c5cbea;
+$headings-color: #e8ebfa;
+$text-muted: #9ba4d0;
+$primary: #aebfff;
+$secondary: #9ba4d0;
+$link-color: #aebfff;
+$navbar-bg: #080c2b;
+$navbar-fg: #e8ebfa;
+$navbar-hl: #aebfff;
+$footer-bg: #080c2b;
+$footer-fg: #9ba4d0;
+$border-color: #1f2858;
+$input-bg: #0f1640;
+$input-color: #e8ebfa;
+$input-border-color: #2a3466;
+$code-color: #c9d4ff;
+
+/*-- scss:rules --*/
+:root {
+  --ac-bg: #080c2b;
+  --ac-surface: #0f1640;
+  --ac-surface-2: #161e52;
+  --ac-ink: #e8ebfa;
+  --ac-ink-2: #c5cbea;
+  --ac-muted: #9ba4d0;
+  --ac-border: rgba(255, 255, 255, 0.10);
+  --ac-border-strong: rgba(255, 255, 255, 0.22);
+  --ac-primary: #aebfff;
+  --ac-link: #aebfff;
+  --ac-accent: #7d93ff;
+  --ac-accent-ink: #aebfff;
+  --ac-chip-bg: #18215a;
+  --ac-btn-bg: #aebfff;
+  --ac-btn-bg-hover: #c9d4ff;
+  --ac-btn-fg: #080c2b;
+  --ac-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+  --ac-net-node: rgba(174, 191, 255, 0.5);
+  --ac-net-edge-rgb: 174, 191, 255;
+  --ac-net-hub: #7d93ff;
+  // chart series (dark steps of the same validated palette)
+  --ac-s1: #3987e5;
+  --ac-s2: #199e70;
+  --ac-s3: #c98500;
+  --ac-s4: #d55181;
+}

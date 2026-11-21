@@ -1,0 +1,108 @@
+<script>
+// Toy "brain network" behind the homepage hero.
+// Nodes drift slowly; nearby nodes are linked with edges whose opacity falls off with distance.
+// A few hub nodes (coral) reach farther, like high-degree hubs in functional connectivity graphs.
+// Respects prefers-reduced-motion (draws one still frame), pauses when the hero is off-screen,
+// and re-reads its colors from CSS variables when the light/dark theme is toggled.
+(() => {
+  const canvas = document.getElementById("ac-network");
+  if (!canvas || !canvas.getContext) return;
+  const hero = canvas.parentElement;
+  const ctx = canvas.getContext("2d");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  let width = 0, height = 0, nodes = [], frameId = null, onScreen = true;
+  let colors = readColors();
+
+  function readColors() {
+    const s = getComputedStyle(document.body);
+    return {
+      node: s.getPropertyValue("--ac-net-node").trim() || "rgba(5,13,124,.45)",
+      edgeRGB: s.getPropertyValue("--ac-net-edge-rgb").trim() || "5,13,124",
+      hub: s.getPropertyValue("--ac-net-hub").trim() || "#e8553a",
+    };
+  }
+
+  function seed() {
+    const count = Math.round(Math.min(95, Math.max(32, (width * height) / 9500)));
+    nodes = Array.from({ length: count }, (_, i) => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      hub: i < Math.max(4, Math.round(count / 14)),
+    }));
+  }
+
+  function resize() {
+    const rect = hero.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const changed = Math.abs(rect.width - width) > 40 || Math.abs(rect.height - height) > 40;
+    width = rect.width; height = rect.height;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (changed || !nodes.length) seed();
+    draw();
+  }
+
+  function step() {
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < -20) n.x = width + 20; else if (n.x > width + 20) n.x = -20;
+      if (n.y < -20) n.y = height + 20; else if (n.y > height + 20) n.y = -20;
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    const reach = Math.max(95, Math.min(150, width / 8));
+    ctx.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const r = reach * (a.hub || b.hub ? 1.45 : 1);
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 > r * r) continue;
+        const alpha = (1 - Math.sqrt(d2) / r) * 0.32;
+        ctx.strokeStyle = `rgba(${colors.edgeRGB}, ${alpha.toFixed(3)})`;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+    }
+    for (const n of nodes) {
+      ctx.fillStyle = n.hub ? colors.hub : colors.node;
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.hub ? 3.6 : 2.1, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  function loop() {
+    step(); draw();
+    frameId = requestAnimationFrame(loop);
+  }
+  function start() {
+    if (frameId || reduceMotion.matches || !onScreen || document.hidden) return;
+    frameId = requestAnimationFrame(loop);
+  }
+  function stop() { if (frameId) cancelAnimationFrame(frameId); frameId = null; }
+
+  new ResizeObserver(resize).observe(hero);
+  new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; onScreen ? start() : stop(); }).observe(hero);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  reduceMotion.addEventListener?.("change", () => (reduceMotion.matches ? (stop(), draw()) : start()));
+  // Quarto toggles light/dark by changing classes on <body> before the other stylesheet applies,
+  // so keep re-reading the colors for a few seconds and redraw once they actually change.
+  let colorFrame = null;
+  const watchColors = (until) => {
+    const next = readColors();
+    if (next.node !== colors.node || next.hub !== colors.hub) { colors = next; draw(); }
+    if (performance.now() < until) colorFrame = requestAnimationFrame(() => watchColors(until));
+  };
+  new MutationObserver(() => { cancelAnimationFrame(colorFrame); watchColors(performance.now() + 3000); })
+    .observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+  resize();
+  start();
+})();
+</script>

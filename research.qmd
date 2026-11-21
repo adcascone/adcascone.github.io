@@ -1,0 +1,120 @@
+---
+title: "Science"
+echo: false
+jupyter: python3
+section-divs: false
+---
+
+```{=html}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+```
+
+```{python}
+import yaml
+from IPython.display import display, Markdown, HTML
+def readable_list(_s):
+  if len(_s) < 3:
+    return ' and '.join(map(str, _s))
+  *a, b = _s
+  return f"{', '.join(map(str, a))}, and {b}"
+def button(url, str, icon):
+    icon_base = icon[:2]
+    return f"""<a class="btn btn-outline-dark btn-sm" href="{url}" target="_blank" rel="noopener noreferrer">
+        <i class="{icon_base} {icon}" role='img' aria-label='{str}'></i>
+        {str}
+    </a>"""
+yaml_data = yaml.safe_load(open("scientific_papers.yml"))
+pub_strs = {"pubs": {}, "wps": {}}
+for _, data in yaml_data.items():
+    title_str = data["title"]
+    authors = data.get("authors", ["me"])
+    authors = [aut if aut != "me" else "<strong>Arianna D. Cascone</strong>" for aut in authors]
+    author_str = readable_list(authors)
+    year_str = data["year"]
+    abstract = data.get("abstract")
+    if abstract is None:
+        abstract = " "
+    buttons = []
+    preprint = data.get("preprint")
+    if preprint is not None:
+        buttons.append(button(preprint, "Preprint", "ai-biorxiv"))
+    github = data.get("github")
+    if github is not None:
+        buttons.append(button(github, "Github", "bi-github"))
+    pubmed=data.get("pubmed")
+    if pubmed is not None:
+        buttons.append(button(pubmed, "PubMed", "ai-pubmed"))
+    pub_url = data.get("published_url")
+    journal = data.get("journal")
+    working_paper = pub_url is None
+    
+    pub_str = f'{author_str}. ({year_str}) "{title_str}."'
+    if journal is not None:
+        pub_str += f" <em>{journal}</em><br>"
+    if working_paper:
+        if year_str not in pub_strs["wps"]:
+            pub_strs["wps"][year_str] = []
+        pub_strs["wps"][year_str].append(
+            "<li class='list-group-item'>" + pub_str + "<br>" + " ".join(buttons) + "</li>"
+        )
+    else:
+        if year_str not in pub_strs["pubs"]:
+            pub_strs["pubs"][year_str] = []
+        buttons.append(button(pub_url, "Published", "bi-journal-check"))
+        pub_strs["pubs"][year_str].append(
+            "<li class='list-group-item'>" + pub_str + "<br>" + "<details><summary>Abstract</summary><ul>" + abstract + "</ul></details>" + "".join(buttons) + "</li>"
+        )
+```
+
+## Published Papers
+
+```{python}
+#| label: "published-year"
+#| id: "published-year"
+#| output: asis
+for year in sorted(pub_strs["pubs"].keys(), reverse=True):
+    display(Markdown(f"### {year}" + "{#" + f"published-{year}" + "}"))
+    display(HTML(
+        "<ul class='list-group list-group-flush'>" + '\n'.join(pub_strs["pubs"][year]) + "</ul>"
+    ))
+```
+
+## Fellowships
+
+**Categorical and dimensional investigations of dynamic functional connectivity and behavior during response inhibition in children with and without ADHD**
+
+::: {.d-flex .justify-content-between}
+<div>
+
+1F31MH130152-01A1, Cascone (PI)\
+Role: Principal Investigator (100% effort)\
+Agency: National Institute of Mental Health, NIH\
+Concluded early upon completion of PhD
+
+</div>
+
+::: text-end
+January 2023 – January 2024\
+Direct costs: $114,657\
+Total awarded: $42,681
+:::
+:::
+
+## Conference Papers
+
+<strong>Cascone, A. D.</strong>, & Dickens, C. N. (2025). R package risk assessment: Balancing programmatic and human inputs. *PHUSE US Connect 2025: The Clinical Data Science Conference*. [Paper (PDF)](https://phuse.s3.eu-central-1.amazonaws.com/Archive/2025/Connect/US/Orlando/PAP_OS05.pdf)
+
+## Published Abstracts
+
+<strong>Cascone, A.</strong>, Giannuzzi, A., Srinivasan, J., Wissemann, K., Taddeo, M., Fafard, L., Bumstead, B., Zarif, M., Buhse, M.,
+Gudesblatt, M. (2018). Multiple sclerosis, fatigue, and disease-modifying therapy impact: Differences in sleep architecture in patients with multiple sclerosis – copaxone versus interferons. Multiple Sclerosis Journal, 24(S2), 324. [https://doi.org/10.1177/1352458518798582](https://journals.sagepub.com/doi/10.1177/1352458518798582)\
+
+<strong>Cascone, A.</strong>, Giannuzzi, A., Srinivasan, J., Wissemann, K., Taddeo, M., Fafard, L., Bumstead, B., Zarif, M., Buhse, M., Gudesblatt, M. (2018). The relationship between obstructive sleep apnea and age, gender, EDSS, disease duration, and BMI in people with multiple sclerosis who report fatigue: More than size matters. Multiple Sclerosis Journal, 24(S2), 566. [https://doi.org/10.1177/1352458518798591](https://journals.sagepub.com/doi/10.1177/1352458518798591)\
+
+Giannuzzi, A., Srinivasan, J., <strong>Cascone, A.</strong>, Wissemann, K., Taddeo, M., Fafard, L., Bumstead, B., Zarif, M., Buhse, M., Gudesblatt, M. (2018). Central sleep apnea in people with multiple sclerosis who report fatigue: Polysomnography study in a large cohort. Multiple Sclerosis Journal, 24(S2), 364. [https://doi.org/10.1177/1352458518798590](https://journals.sagepub.com/doi/10.1177/1352458518798590)\ 
+
+Giannuzzi, A., Srinivasan, J., <strong>Cascone, A.</strong>, Wissemann, K., Taddeo, M., Fafard, L., Bumstead, B., Zarif, M., Buhse, M., Gudesblatt, M. (2018). Fatigue, patient reported outcomes, and sleep apnea in people with multiple sclerosis: Perception is insufficient to just sleep on it. Multiple Sclerosis Journal, 24(S2), 796. [https://doi.org/10.1177/1352458518798592](https://journals.sagepub.com/doi/10.1177/1352458518798592)\ 
+
+Srinivasan, J., Giannuzzi, A., <strong>Cascone, A.</strong>, Wissemann, K., Taddeo, M., Fafard, L., Bumstead, B., Zarif, M., Gudesblatt, M. (2018). Periodic limb movements in people with multiple sclerosis who report fatigue: Polysomnography study in a large cohort. Multiple Sclerosis Journal, 24(S2), 154. [https://doi.org/10.1177/1352458518798582](https://journals.sagepub.com/doi/10.1177/1352458518798582)
+
+<br><br><br><br><br><br>
