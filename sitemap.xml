@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://adcascone.github.io/about.html</loc>
-    <lastmod>2026-11-24T01:27:48.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adcascone.github.io/index.html</loc>
-    <lastmod>2026-11-24T01:27:48.812Z</lastmod>
-  </url>
-  <url>
     <loc>https://adcascone.github.io/projects.html</loc>
-    <lastmod>2026-11-24T01:27:48.812Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adcascone.github.io/research.html</loc>
-    <lastmod>2026-11-24T01:27:48.812Z</lastmod>
+    <lastmod>2026-11-26T22:46:43.580Z</lastmod>
   </url>
   <url>
     <loc>https://adcascone.github.io/soccer.html</loc>
-    <lastmod>2026-11-24T01:27:48.813Z</lastmod>
+    <lastmod>2026-11-26T22:46:43.580Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adcascone.github.io/research.html</loc>
+    <lastmod>2026-11-26T22:46:43.580Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adcascone.github.io/index.html</loc>
+    <lastmod>2026-11-26T22:46:43.580Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adcascone.github.io/about.html</loc>
+    <lastmod>2026-11-26T22:46:43.579Z</lastmod>
   </url>
 </urlset>
